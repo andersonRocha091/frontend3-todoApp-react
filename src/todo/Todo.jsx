@@ -23,7 +23,9 @@ export default class Todo extends Component {
   }
 
   handleAdd() {
-
+    const description = this.state.description;
+    Axios.post(URL,{description})
+      .then(resp=>console.log('Funcionou'));
   }
 
   render() {
