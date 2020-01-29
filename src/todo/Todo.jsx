@@ -28,11 +28,9 @@ export default class Todo extends Component {
     const search = description?`&description__regex=/${description}/`:'';
     Axios.get(`${URL}?sort=-createdAt${search}`)
       .then((resp) =>{
-        console.log(`${URL}?sort=-createdAt${search}`);
-        console.log(resp.data);
         this.setState({
           ...this.state,
-          description: '',
+          description,
           list: resp.data
         });
       }) 
@@ -54,17 +52,17 @@ export default class Todo extends Component {
   handleAdd() {
     const description = this.state.description;
     Axios.post(URL, { description })
-      .then(resp => this.refresh());
+      .then(resp => this.refresh(this.state.description));
   }
 
   handleMarkAsDone(todo) {
     Axios.put(`${URL}/${todo._id}`, { ...todo, done: true })
-      .then(resp => this.refresh());
+      .then(resp => this.refresh(this.state.description));
   }
 
   handleMarkAsPending(todo) {
     Axios.put(`${URL}/${todo._id}`, { ...todo, done: false })
-      .then(resp => this.refresh());
+      .then(resp => this.refresh(this.state.description));
   }
 
   render() {
