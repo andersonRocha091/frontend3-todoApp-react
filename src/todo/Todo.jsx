@@ -21,22 +21,23 @@ export default class Todo extends Component {
     this.handleMarkAsDone = this.handleMarkAsDone.bind(this);
     this.handleMarkAsPending = this.handleMarkAsPending.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleClear = this.handleClear.bind(this);
     this.refresh();
   }
 
-  refresh(description='') {
-    const search = description?`&description__regex=/${description}/`:'';
+  refresh(description = '') {
+    const search = description ? `&description__regex=/${description}/` : '';
     Axios.get(`${URL}?sort=-createdAt${search}`)
-      .then((resp) =>{
+      .then((resp) => {
         this.setState({
           ...this.state,
           description,
           list: resp.data
         });
-      }) 
+      })
   }
 
-  handleSearch(){
+  handleSearch() {
     this.refresh(this.state.description);
   }
 
@@ -52,7 +53,7 @@ export default class Todo extends Component {
   handleAdd() {
     const description = this.state.description;
     Axios.post(URL, { description })
-      .then(resp => this.refresh(this.state.description));
+      .then(resp => this.refresh());
   }
 
   handleMarkAsDone(todo) {
@@ -65,6 +66,10 @@ export default class Todo extends Component {
       .then(resp => this.refresh(this.state.description));
   }
 
+  handleClear() {
+    this.refresh();
+  }
+
   render() {
     return (
       <div>
@@ -74,8 +79,9 @@ export default class Todo extends Component {
           handleAdd={this.handleAdd}
           handleChange={this.handleChange}
           handleSearch={this.handleSearch}
+          handleClear={this.handleClear}
         />
-        <TodoList list={this.state.list} 
+        <TodoList list={this.state.list}
           handleRemove={this.handleRemove}
           handleMarkAsDone={this.handleMarkAsDone}
           handleMarkAsPending={this.handleMarkAsPending} />
