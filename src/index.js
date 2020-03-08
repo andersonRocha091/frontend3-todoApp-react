@@ -7,15 +7,16 @@ import Reducers from './main/Reducers';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
+import promise from 'redux-promise';
 
-const devTools = window.__REDUX_DEVTOOLS_EXTENSION__&&
-window.__REDUX_DEVTOOLS_EXTENSION__()
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION__()
 
 //Cria o estado unificado da aplicação, controlado
 //pelo redux
-const store = createStore(Reducers,devTools);
+const store = applyMiddleware(promise)(createStore)(Reducers, devTools);
 
 ReactDOM.render(
     <Provider store={store}>
