@@ -10,8 +10,12 @@ import 'font-awesome/css/font-awesome.min.css';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__&&
+window.__REDUX_DEVTOOLS_EXTENSION__()
 
-const store = createStore(Reducers);
+//Cria o estado unificado da aplicação, controlado
+//pelo redux
+const store = createStore(Reducers,devTools);
 
 ReactDOM.render(
     <Provider store={store}>

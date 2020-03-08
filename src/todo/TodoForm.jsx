@@ -1,14 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import Grid from '../template/Grid';
 import IconButton from '../template/IconButton';
 
-export default props => {
+import { changeDescription } from './TodoActions';
+
+const TodoForm = props => {
 
     const keyHandler = (e) => {
         if (e.key == 'Enter') {
             e.shiftKey ? props.handleSearch() : props.handleAdd();
         }
-        else if(e.key=='Escape'){
+        else if (e.key == 'Escape') {
             props.handleClear()
         }
     }
@@ -19,7 +24,7 @@ export default props => {
                 <Grid cols='12 9 10'>
                     <input type="text" className="form-control"
                         placeholder="Adicione uma tarefa"
-                        onChange={props.handleChange}
+                        onChange={props.changeDescription}
                         onKeyUp={keyHandler}
                         value={props.description}
                     />
@@ -38,3 +43,12 @@ export default props => {
         </div>
     );
 }
+
+const mapStateToProps = state => ({
+    description: state.todo.description
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({ changeDescription }, dispatch);
+
+export default connect(mapStateToProps,mapDispatchToProps)(TodoForm);
