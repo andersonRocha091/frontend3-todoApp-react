@@ -9,14 +9,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
+
 import promise from 'redux-promise';
+import multi from 'redux-multi';
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__()
 
 //Cria o estado unificado da aplicação, controlado
 //pelo redux
-const store = applyMiddleware(promise)(createStore)(Reducers, devTools);
+const store = applyMiddleware(multi,promise)(createStore)(Reducers, devTools);
 
 ReactDOM.render(
     <Provider store={store}>
