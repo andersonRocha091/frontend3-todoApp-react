@@ -12,13 +12,14 @@ import { Provider } from 'react-redux';
 
 import promise from 'redux-promise';
 import multi from 'redux-multi';
+import thunk from 'redux-thunk';
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__()
 
 //Cria o estado unificado da aplicação, controlado
 //pelo redux
-const store = applyMiddleware(multi,promise)(createStore)(Reducers, devTools);
+const store = applyMiddleware(thunk,multi,promise)(createStore)(Reducers, devTools);
 
 ReactDOM.render(
     <Provider store={store}>
