@@ -33,7 +33,7 @@
     ]
   },
   "devDependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-redux": "^7.2.0",
